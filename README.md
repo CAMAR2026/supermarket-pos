@@ -1,3 +1,4 @@
+HEAD
 # SuperMarket POS Management System
 
 Web-based supermarket management for owners, cashiers and stock managers: products, checkout, inventory, sales and reports.
@@ -14,11 +15,11 @@ Web-based supermarket management for owners, cashiers and stock managers: produc
 2. Open `backend/.env` and set `MONGO_URI`.
 3. Install and seed:
 
-```bash
+bash
 npm run install:all
 npm run seed
 npm run dev
-```
+
 
 - API: http://localhost:5000
 - App: http://localhost:5173
@@ -42,3 +43,7 @@ Change these passwords before any real deployment.
 ## Checkout
 
 Search by name, SKU or barcode (USB scanners that type and press Enter work in the POS search box). Cash and M-Pesa reference recording, change calculation, printable receipts, and automatic stock deduction are included. Sales store product name/price snapshots so old receipts stay accurate after price changes.
+=======
+# supermarket-pos
+A full-stack supermarket Point of Sale (POS) management system.
+ origin/main
