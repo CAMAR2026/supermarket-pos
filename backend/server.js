@@ -8,9 +8,26 @@ dotenv.config();
 
 const app = express();
 
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'https://supermarket-pos-static-site.onrender.com',
+  ...(process.env.CLIENT_URL || '').split(','),
+]
+  .map((origin) => origin.trim().replace(/\/$/, ''))
+  .filter(Boolean)
+  .filter((origin, index, list) => list.indexOf(origin) === index);
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin(origin, callback) {
+      const requestOrigin = origin ? origin.replace(/\/$/, '') : '';
+      if (!requestOrigin || allowedOrigins.includes(requestOrigin)) {
+        callback(null, true);
+        return;
+      }
+      callback(null, false);
+    },
     credentials: true,
   })
 );

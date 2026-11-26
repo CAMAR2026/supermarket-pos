@@ -1,3 +1,4 @@
+import { assetUrl } from '../api/client';
 import { money, formatDate } from '../utils/format';
 
 const Receipt = ({ sale, settings }) => {
@@ -7,7 +8,7 @@ const Receipt = ({ sale, settings }) => {
   return (
     <div id="print-area" className="mx-auto max-w-sm bg-white p-6 text-sm text-slate-800">
       {settings?.logo && (
-        <img src={settings.logo} alt="" className="mx-auto mb-3 h-12 object-contain" />
+        <img src={assetUrl(settings.logo)} alt="" className="mx-auto mb-3 h-12 object-contain" />
       )}
       <div className="text-center">
         <h2 className="text-lg font-bold">{settings?.storeName || 'SuperMarket POS'}</h2>

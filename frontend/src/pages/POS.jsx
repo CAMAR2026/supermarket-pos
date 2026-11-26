@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Minus, Plus, Search, Trash2 } from 'lucide-react';
-import api from '../api/client';
+import api, { assetUrl } from '../api/client';
 import Modal from '../components/Modal';
 import Receipt from '../components/Receipt';
 import { useAuth } from '../context/AuthContext';
@@ -161,7 +161,7 @@ const POS = () => {
               className="rounded-xl border border-slate-200 p-3 text-left hover:border-emerald-400 hover:bg-emerald-50"
             >
               {product.image ? (
-                <img src={product.image} alt="" className="mb-2 h-16 w-full rounded-lg object-cover" />
+                <img src={assetUrl(product.image)} alt="" className="mb-2 h-16 w-full rounded-lg object-cover" />
               ) : null}
               <p className="font-medium">{product.name}</p>
               <p className="text-xs text-slate-500">{product.sku}</p>

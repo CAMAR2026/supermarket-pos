@@ -1,4 +1,3 @@
-HEAD
 # SuperMarket POS Management System
 
 Web-based supermarket management for owners, cashiers and stock managers: products, checkout, inventory, sales and reports.
@@ -9,20 +8,50 @@ Web-based supermarket management for owners, cashiers and stock managers: produc
 - Backend: Node.js, Express, JWT, bcrypt
 - Database: MongoDB Atlas with Mongoose
 
-## Setup
+## Local setup
 
-1. Create a MongoDB Atlas cluster and database user. Copy the connection string.
-2. Open `backend/.env` and set `MONGO_URI`.
-3. Install and seed:
+1. Copy `backend/.env.example` to `backend/.env` and set `MONGO_URI`.
+2. Frontend local values are already in `frontend/.env.development`.
+3. Install, seed, and run:
 
-bash
+```bash
 npm run install:all
 npm run seed
 npm run dev
-
+```
 
 - API: http://localhost:5000
 - App: http://localhost:5173
+
+## Environment variables
+
+### Backend (`backend/.env`, or the API host's dashboard)
+
+| Variable | Purpose |
+| --- | --- |
+| `PORT` | API port. Hosts such as Render set this themselves. |
+| `MONGO_URI` | Atlas connection string. Database name: `supermarket-pos`. |
+| `JWT_SECRET` | Long random signing secret. |
+| `JWT_EXPIRES_IN` | Token lifetime, for example `7d`. |
+| `CLIENT_URL` | Comma-separated frontend origins, for example `http://localhost:5173,https://your-app.vercel.app`. |
+
+### Frontend (Vite, baked in at build time)
+
+| Variable | Purpose |
+| --- | --- |
+| `VITE_API_URL` | API base. Local: `/api`. Hosted: `https://your-api-host.onrender.com/api`. |
+| `VITE_PROXY_TARGET` | Local only. Where Vite forwards `/api` and `/uploads`. Default `http://localhost:5000`. |
+
+See `frontend/.env.example` and `frontend/.env.production.example`.
+
+## Hosting
+
+1. Deploy the `backend` folder (start command `npm start`, root `backend`).
+2. On the API host, set `MONGO_URI`, `JWT_SECRET`, `JWT_EXPIRES_IN`, and `CLIENT_URL` to the frontend URL.
+3. Deploy the `frontend` folder. Set `VITE_API_URL` to `https://<your-api-host>/api`, then rebuild.
+4. In Atlas, Network Access must allow the API host (`0.0.0.0/0` is the simplest option).
+
+`frontend/vercel.json` sends all routes to `index.html` so refresh works on client-side pages.
 
 ## Demo accounts
 
@@ -33,17 +62,3 @@ npm run dev
 | Stock manager | stock@supermarket.com | stock123 |
 
 Change these passwords before any real deployment.
-
-## Roles
-
-- **Admin**: users, products, categories, sales, reports, inventory, settings
-- **Cashier**: POS checkout, own sales, customers
-- **Stock manager**: products, categories, inventory, stock history
-
-## Checkout
-
-Search by name, SKU or barcode (USB scanners that type and press Enter work in the POS search box). Cash and M-Pesa reference recording, change calculation, printable receipts, and automatic stock deduction are included. Sales store product name/price snapshots so old receipts stay accurate after price changes.
-=======
-# supermarket-pos
-A full-stack supermarket Point of Sale (POS) management system.
- origin/main
